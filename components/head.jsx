@@ -4,7 +4,7 @@ import youtube_logo_drawing from "../assets/images/youtube_logo_drawing.png";
 import youtube_logo_text from "../assets/images/youtube_logo_text.png";
 import apix_logo_white_drawing from "../assets/images/apix_logo_white_drawing.png";
 import billboard_logo_white_text from "../assets/images/billboard_logo_white_text.jpg";
-// import { BilboardWeek } from "@/components/billboardWeek";
+import { BilboardWeek } from "./billboardWeek";
 
 export const Head = () => {
   return (
@@ -21,7 +21,7 @@ export const Head = () => {
           backgroundColor: "black",
           display: "flex",
           flexDirection: "row",
-          height: 120,
+          height: 130,
         }}
       >
         <View
@@ -77,7 +77,7 @@ export const Head = () => {
             source={billboard_logo_white_text}
             style={{ width: 135, height: 27, marginLeft: 50 }}
           />
-          {/* <BilboardWeek billboardWeek={"WEEK OF AUGUST 10, 2024"} /> */}
+          <BilboardWeek billboardWeek={"WEEK OF AUGUST 10, 2024"} />
         </View>
       </View>
       <View
@@ -115,8 +115,6 @@ export const Head = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "16.666%",
-            borderWidth: 2,
-            borderColor: "white",
             backgroundColor: "black",
           }}
         >
@@ -135,8 +133,6 @@ export const Head = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "16.666%",
-            borderWidth: 2,
-            borderColor: "white",
             backgroundColor: "black",
           }}
         >
@@ -155,8 +151,6 @@ export const Head = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "16.666%",
-            borderWidth: 2,
-            borderColor: "white",
             backgroundColor: "black",
           }}
         >
