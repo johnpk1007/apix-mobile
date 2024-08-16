@@ -1,10 +1,4 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -19,6 +13,7 @@ export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
     "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
   });
   useEffect(() => {

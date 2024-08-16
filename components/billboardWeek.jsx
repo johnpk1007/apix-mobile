@@ -8,7 +8,6 @@ export const BilboardWeek = ({ billboardWeek }) => {
         position: "absolute",
         bottom: 0,
         right: 0,
-        justifyContent: "center",
         alignItems: "flex-end",
         marginRight: 3,
       }}
@@ -19,6 +18,7 @@ export const BilboardWeek = ({ billboardWeek }) => {
           fontFamily: "Poppins-Black",
           textAlign: "right",
           fontSize: 14,
+          height: 20,
         }}
       >
         Billboard Hot 100
@@ -29,6 +29,7 @@ export const BilboardWeek = ({ billboardWeek }) => {
           fontFamily: "Poppins-SemiBold",
           fontSize: 14,
           textAlign: "right",
+          height: 20,
         }}
       >
         {billboardWeek}

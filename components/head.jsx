@@ -21,7 +21,7 @@ export const Head = () => {
           backgroundColor: "black",
           display: "flex",
           flexDirection: "row",
-          height: 130,
+          height: 120,
         }}
       >
         <View
