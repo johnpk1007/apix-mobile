@@ -1,19 +1,50 @@
-import { View, Text } from "react-native";
-import { BilboardCard } from "@/components/billboardCard";
+import { View, Text, ScrollView, FlatList } from "react-native";
+import { BillboardCard } from "@/components/billboardCard";
+import { useEffect, useState, useRef } from "react";
+import { BillboardCardPack } from "@/components/billboardCardPack";
 
-const data = {
-  title: "A Bar Song(Tipsy)",
-  artist: "Shaboozey",
-  this_week: 1,
-  last_week: 1,
-  peak_pos: 1,
-  wks_on_chart: 17,
+const BillboardCardDeck = ({ dataSlice }) => {
+  const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  return (
+    <View>
+      {arr.map((i) => (
+        <BillboardCard key={i} data={dataSlice ? dataSlice[i] : null} />
+      ))}
+    </View>
+  );
 };
 
 export default function Page() {
+  const [data, setData] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://www.apixapi.xyz/api/main", {
+        cache: "default",
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const responseJson = await response.json();
+      setData(responseJson);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <View>
-      <BilboardCard data={data} />
-    </View>
+    <FlatList
+      ListHeaderComponent={
+        <ScrollView>
+          <BillboardCardDeck dataSlice={data.slice(0, 10)} />
+        </ScrollView>
+      }
+      data={data.slice(10, 100)}
+      renderItem={(item) => <BillboardCard data={item.item} />}
+      keyExtractor={(item) => item._id}
+      style={{ backgroundColor: "black" }}
+    />
   );
 }

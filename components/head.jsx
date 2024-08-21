@@ -10,10 +10,13 @@ export const Head = () => {
   return (
     <View
       style={{
+        width: "100%",
         backgroundColor: "black",
         display: "flex",
         flexDirection: "column",
         height: 190,
+        borderBottomColor: "white",
+        borderWidth: 2,
       }}
     >
       <View
@@ -95,18 +98,29 @@ export const Head = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "16.666%",
-            borderWidth: 2,
-            borderColor: "white",
             backgroundColor: "black",
           }}
         >
-          <Text
+          <View
             style={{
-              color: "white",
-              textAlign: "center",
-              fontFamily: "Poppins-Black",
+              width: 48,
+              height: 48,
+              borderColor: "white",
+              borderWidth: 2,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          >{`THIS\nWEEK`}</Text>
+          >
+            <Text
+              style={{
+                color: "white",
+                textAlign: "center",
+                fontFamily: "Poppins-Black",
+                fontSize: 13,
+              }}
+            >{`THIS\nWEEK`}</Text>
+          </View>
         </View>
         <View
           style={{
@@ -123,6 +137,7 @@ export const Head = () => {
               color: "white",
               textAlign: "center",
               fontFamily: "Poppins-Black",
+              fontSize: 13,
             }}
           >{`LAST\nWEEK`}</Text>
         </View>
@@ -141,6 +156,7 @@ export const Head = () => {
               color: "white",
               textAlign: "center",
               fontFamily: "Poppins-Black",
+              fontSize: 13,
             }}
           >{`PEAK\nPOS.`}</Text>
         </View>
@@ -159,6 +175,7 @@ export const Head = () => {
               color: "white",
               textAlign: "center",
               fontFamily: "Poppins-Black",
+              fontSize: 13,
             }}
           >{`WKS ON\nCHART`}</Text>
         </View>
