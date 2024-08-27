@@ -1,38 +1,74 @@
 import { useContext, useRef, useState } from "react";
 import { router, usePathname } from "expo-router";
-import { View, Text, Touchable, TouchableHighlight } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Animated } from "react-native";
 
 export const ArtistLinkButton = ({ artist, extra }) => {
-  //   const spanRef = useRef(null);
-  //   const { data, num } = useContext(Context);
-  //   const router = useRouter();
-  //   const [left, setLeft] = useState(0);
-  //   const [top, setTop] = useState(0);
+  const position = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
+  const bigAnim = useRef(new Animated.Value(1)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
+  const big = (event) => {
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(position, {
+          toValue: {
+            x: event.nativeEvent.locationX,
+            y: event.nativeEvent.locationY,
+          },
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0.8,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.parallel([
+        Animated.timing(bigAnim, {
+          toValue: 100,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start(() => {
+      position.setValue({ x: 0, y: 0 });
+      bigAnim.setValue(1);
+      opacityAnim.setValue(0);
+    });
+  };
+  const animationStyle = {
+    transform: [
+      { translateX: position.x },
+      { translateY: position.y },
+      { scale: bigAnim },
+    ],
+    opacity: opacityAnim,
+  };
 
-  //   const createRipple = (event) => {
-  //     if (spanRef.current.classList.contains("ripple")) {
-  //       spanRef.current.classList.remove("ripple");
-  //     }
-  //     setLeft(event.clientX - event.target.getBoundingClientRect().left - 10);
-  //     setTop(event.clientY - event.target.getBoundingClientRect().top - 10);
-  //     spanRef.current.classList.add("ripple");
-  //   };
+  const createRipple = (event) => {
+    big(event);
+  };
 
   const handleClick = (event) => {
-    // createRipple(event);
-    // sessionStorage.setItem("data", JSON.stringify(data));
-    // sessionStorage.setItem("height", `${window.scrollY}`);
-    // sessionStorage.setItem("num", `${num}`);
+    createRipple(event);
     router.push(`/artist/${artist}`);
   };
   return (
-    <View style={{ borderRadius: 8, overflow: "hidden" }}>
-      <TouchableHighlight onPress={handleClick} underlayColor={"rgb(30,41,59)"}>
+    <View
+      style={{
+        borderRadius: 15,
+        overflow: "hidden",
+      }}
+    >
+      <TouchableWithoutFeedback onPress={handleClick}>
         <View
           style={{
-            borderRadius: 8,
             position: "relative",
-            overflow: "hidden",
           }}
         >
           <Text
@@ -51,18 +87,21 @@ export const ArtistLinkButton = ({ artist, extra }) => {
               : ""}
             {artist}
           </Text>
-          {/* {extra}
-      {extra === "Featuring" || extra === "&" || extra === "X" || extra === "x"
-        ? " "
-        : ""}
-      {artist} */}
-          {/* <span
-        ref={spanRef}
-        className="w-[20px] h-[20px]"
-        style={{ left, top }}
-      ></span> */}
+          <Animated.View
+            style={[
+              {
+                position: "absolute",
+                height: 5,
+                width: 5,
+                backgroundColor: "white",
+                zIndex: 1,
+                borderRadius: 10,
+              },
+              animationStyle,
+            ]}
+          />
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

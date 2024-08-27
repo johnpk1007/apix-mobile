@@ -7,6 +7,7 @@ import CustomStatusBar from "@/components/customStatusBar";
 import { Head } from "@/components/head";
 import { ArtistHead, ArtistHead1 } from "@/components/artistHead";
 import { Stack } from "expo-router";
+import GlobalProvider from "@/components/GlobalProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -38,26 +39,23 @@ export default function RootLayout() {
 
   return (
     <CustomStatusBar statusBgColor="black" bgColor="black">
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            header: (props) => <Head {...props} />,
-          }}
-        />
-        <Stack.Screen
-          name="artist/[query]"
-          // options={{
-          //   header: (props) => <ArtistHead {...props} />,
-          // }}
-          // options={{
-          //   headerShown: false,
-          // }}
-          options={{
-            header: (props) => <ArtistHead1 {...props} />,
-          }}
-        />
-      </Stack>
+      <GlobalProvider>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{
+              header: (props) => <Head {...props} />,
+            }}
+          />
+          <Stack.Screen
+            name="artist/[query]"
+            options={{
+              header: (props) => <ArtistHead1 {...props} />,
+            }}
+          />
+          <Stack.Screen name="+not-found" options={{ headerShown: false }} />
+        </Stack>
+      </GlobalProvider>
     </CustomStatusBar>
   );
 }

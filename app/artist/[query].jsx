@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, router, Redirect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { ArtistCard } from "@/components/artistCard";
@@ -17,6 +17,10 @@ export default function Page() {
   useEffect(() => {
     fetchArtist();
   }, [query]);
+
+  if (!data) {
+    return <Redirect href="/+not-found" />;
+  }
 
   const ArtistCardDeck = ({ data, artist, image }) => {
     let arr = [0, 1, 2, 3, 4];

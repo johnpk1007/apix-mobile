@@ -5,8 +5,10 @@ import youtube_logo_text from "../assets/images/youtube_logo_text.png";
 import apix_logo_white_drawing from "../assets/images/apix_logo_white_drawing.png";
 import billboard_logo_white_text from "../assets/images/billboard_logo_white_text.jpg";
 import { BilboardWeek } from "./billboardWeek";
+import { useGlobalContext } from "@/components/GlobalProvider";
 
 export const Head = () => {
+  const { date, setDate } = useGlobalContext();
   return (
     <View
       style={{
@@ -80,7 +82,7 @@ export const Head = () => {
             source={billboard_logo_white_text}
             style={{ width: 135, height: 27, marginLeft: 50 }}
           />
-          <BilboardWeek billboardWeek={"WEEK OF AUGUST 10, 2024"} />
+          <BilboardWeek billboardWeek={date} />
         </View>
       </View>
       <View

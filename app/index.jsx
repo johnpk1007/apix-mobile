@@ -2,6 +2,8 @@ import { View, Text, ScrollView, FlatList } from "react-native";
 import { BillboardCard } from "@/components/billboardCard";
 import { useEffect, useState, useRef } from "react";
 import { BillboardCardPack } from "@/components/billboardCardPack";
+import { useGlobalContext } from "@/components/GlobalProvider";
+import { stringFromId } from "@/components/stringFromId";
 
 const BillboardCardDeck = ({ dataSlice }) => {
   const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -15,6 +17,7 @@ const BillboardCardDeck = ({ dataSlice }) => {
 };
 
 export default function Page() {
+  const { date, setDate } = useGlobalContext();
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
@@ -26,6 +29,7 @@ export default function Page() {
       }
       const responseJson = await response.json();
       setData(responseJson);
+      setDate(stringFromId(responseJson[0]._id));
     } catch (error) {
       console.error("Error fetching data:", error);
     }

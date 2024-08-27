@@ -1,4 +1,6 @@
 import { View, Text } from "react-native";
+import { TextSkeleton } from "./skeleton";
+
 export const BilboardWeek = ({ billboardWeek }) => {
   return (
     <View
@@ -32,7 +34,11 @@ export const BilboardWeek = ({ billboardWeek }) => {
           height: 20,
         }}
       >
-        {billboardWeek}
+        {billboardWeek ? (
+          billboardWeek
+        ) : (
+          <TextSkeleton width={150} height={10} borderRadius={10} />
+        )}
       </Text>
     </View>
   );
