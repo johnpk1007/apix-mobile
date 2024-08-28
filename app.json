@@ -4,7 +4,7 @@
     "slug": "apix-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/apix_icon_2.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -20,9 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/apix_icon_2.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#000000"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.johnpk1007.apixmobile",
       "runtimeVersion": "1.0.0"
