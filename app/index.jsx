@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, FlatList } from "react-native";
 import { BillboardCard } from "@/components/billboardCard";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, memo } from "react";
 import { BillboardCardPack } from "@/components/billboardCardPack";
 import { useGlobalContext } from "@/components/GlobalProvider";
 import { stringFromId } from "@/components/stringFromId";
@@ -15,6 +15,13 @@ const BillboardCardDeck = ({ dataSlice }) => {
     </View>
   );
 };
+
+const ListItem = memo(
+  ({ item }) => <BillboardCard data={item.item} />,
+  (prevProps, nextProps) => {
+    return prevProps.item.item === nextProps.item.item;
+  }
+);
 
 export default function Page() {
   const { date, setDate } = useGlobalContext();
@@ -46,9 +53,11 @@ export default function Page() {
         </ScrollView>
       }
       data={data.slice(10, 100)}
-      renderItem={(item) => <BillboardCard data={item.item} />}
+      // renderItem={(item) => <BillboardCard data={item.item} />}
+      renderItem={(item) => <ListItem item={item} />}
       keyExtractor={(item) => item._id}
       style={{ backgroundColor: "black" }}
+      removeClippedSubviews={true}
     />
   );
 }
