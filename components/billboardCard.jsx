@@ -117,7 +117,11 @@ export const BillboardCard = ({ data }) => {
             }}
           >
             {data ? (
-              data.last_week
+              data.last_week !== 0 ? (
+                data.last_week
+              ) : (
+                "NEW"
+              )
             ) : (
               <Skeleton width={32} height={32} borderRadius={16} />
             )}
