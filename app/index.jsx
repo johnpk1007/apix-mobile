@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView, FlatList, AppState } from "react-native";
 import { BillboardCard } from "@/components/billboardCard";
 import { useEffect, useState, memo } from "react";
 import { BillboardCardPack } from "@/components/billboardCardPack";
@@ -44,6 +44,25 @@ export default function Page() {
   useEffect(() => {
     fetchData();
   }, []);
+  const [appState, setAppState] = useState(AppState.currentState);
+  const [refresh, setRefresh] = useState(false);
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        setRefresh((current) => !current);
+      }
+      setAppState(nextAppState);
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [appState]);
 
   return (
     <FlatList
@@ -53,11 +72,11 @@ export default function Page() {
         </ScrollView>
       }
       data={data.slice(10, 100)}
-      // renderItem={(item) => <BillboardCard data={item.item} />}
       renderItem={(item) => <ListItem item={item} />}
       keyExtractor={(item) => item._id}
       style={{ backgroundColor: "black" }}
       removeClippedSubviews={true}
+      extraData={refresh}
     />
   );
 }
